@@ -8,7 +8,14 @@ function getAddress () {
         $cep = filterCep ($cep);
         
         if (isCep ($cep)) {
-            $address = getAdressViaCep($cep);
+            $response = getAdressViaCep($cep);
+            $address = (object) [
+                'cep' => $response->cep,
+                'logradouro' => $response->logradouro,
+                'bairro' => $response->bairro,
+                'localidade' => $response->localidade,
+                'uf' => $response->uf,
+            ];
         } else {
             $address = addressEmpty();
             $address->cep = 'CEP inválido';
